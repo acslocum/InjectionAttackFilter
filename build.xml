@@ -47,6 +47,7 @@
 	<target name="clean">
 		<delete dir="classes" includes="**/*.*"/>
 		<delete dir="testclasses" includes="**/*.*"/>
+		<delete dir="junit" includes="**/*.*"/>
     	<delete dir="jars" includes="*.jar" failonerror="false"/>
 	</target>
 

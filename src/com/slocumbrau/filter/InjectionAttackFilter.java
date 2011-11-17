@@ -72,10 +72,13 @@ public class InjectionAttackFilter extends HttpServletRequestWrapper {
     if (rawValue == null) {
       return null;
     }
-	if(onlyFilterDangerousCharacters())
-      return rawValue.replaceAll(XSS_REGEX, "").replaceAll(SQL_REGEX, "");
-	else
-	  return rawValue.matches(XSS_REGEX) || rawValue.matches(SQL_REGEX) ? "" : rawValue;
+	if(filterXSS()) {
+		rawValue = rawValue.replaceAll(XSS_REGEX, "");
+	}
+	if(filterSQL()) {
+		rawValue = rawValue.replaceAll(SQL_REGEX, "");
+	}
+    return rawValue;
   }
 
   @Override
@@ -88,10 +91,6 @@ public class InjectionAttackFilter extends HttpServletRequestWrapper {
   }
 
   protected boolean filterSQL() {
-	return true;
-  }
-
-  protected boolean onlyFilterDangerousCharacters() {
 	return true;
   }
 

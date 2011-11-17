@@ -96,15 +96,4 @@ public class InjectionAttackFilterTest {
     assertEquals("orderNumber=&phoneNumber='scriptalert('boooo')/script", wrapper.getQueryString());
   }
 
-  @Test
-  public void shouldRemoveEntireCompromisedParamIfOnlyFilterDangerousCharactersSettingIsFalse() {
-	wrapper = new InjectionAttackFilter(request){
-		protected boolean onlyFilterDangerousCharacters() {
-			return false;
-		}
-	};
-    assertEquals("hi", wrapper.filterParamString("hi"));
-    assertEquals("", wrapper.filterParamString(STRING_WITH_RESTRICTED_CHARS));
-  }
-
 }

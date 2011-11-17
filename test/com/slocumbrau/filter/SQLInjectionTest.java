@@ -40,5 +40,4 @@ public class SQLInjectionTest {
     assertEquals("'  'foo", wrapper.filterParamString(SQL_INJECTION_UNENCODED));
   }
 
-
 }
