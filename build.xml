@@ -1,0 +1,58 @@
+<project name="InjectionAttackFilter" default="all">
+	<property name="version" value="0.5"/>
+	
+	<path id="classpath">
+		<fileset dir="lib">
+	    	<include name="*.jar"/>
+    	</fileset>
+	</path>
+   <property name="classpath" refid="classpath"/>
+	
+	<path id="test.classpath">
+		<fileset dir="lib">
+	    	<include name="*.jar"/>
+    	</fileset>
+		<pathelement location="classes"/>
+		<pathelement location="testclasses"/>
+	</path>	
+   <property name="test.classpath" refid="test.classpath"/>
+	
+	<target name="compile">
+		<mkdir dir="jars"/>
+		<mkdir dir="junit"/>
+		<mkdir dir="classes"/>
+		<mkdir dir="testclasses"/>
+    	<javac srcdir="src" destdir="classes" fork="true" classpath="${classpath}"/>
+    	<javac srcdir="test" destdir="testclasses" fork="true" classpath="${test.classpath}"/>
+	</target>
+	
+	<target name="test" depends="compile">
+	    <junit fork="yes" forkmode="once" printsummary="true" failureProperty="${test.failed}">
+			 <classpath>
+		        <path refid="test.classpath"/>
+		      </classpath>
+		      <formatter type="plain" usefile="true"/>
+		      <batchtest filtertrace="on" fork="yes" todir="junit">
+		        <fileset dir="test" includes="**/*Test.java"/>
+		      </batchtest>
+		</junit>
+	</target>
+	
+	<target name="jar" depends="compile">
+		<jar destfile="jars/injectionAttackFilter-${version}.jar">
+			<fileset dir="classes" includes="**/*.*"/>
+		</jar>
+	</target>
+	
+	<target name="clean">
+		<delete dir="classes" includes="**/*.*"/>
+		<delete dir="testclasses" includes="**/*.*"/>
+    	<delete dir="jars" includes="*.jar" failonerror="false"/>
+	</target>
+
+  <target name="fail" if="${test.failed}" unless="nofail">
+    <fail message="JUnit tests failed!"/>
+  </target>
+	
+	<target name="all" depends="clean, compile, test, fail, jar"/>
+</project>
