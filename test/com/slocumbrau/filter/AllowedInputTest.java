@@ -2,13 +2,9 @@ package com.slocumbrau.filter;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -18,13 +14,13 @@ public class AllowedInputTest {
   private final String DATE_INPUT = "August 30, 2005";
   private final String OTHER_CHARS_INPUT = ".' ,-";
 
-  private InjectionAttackFilter wrapper;
+  private InjectionAttackWrapper wrapper;
   private HttpServletRequest request;
 
   @Before
   public void setUp() throws Exception {
     request = Mockito.mock(HttpServletRequest.class);
-    wrapper = new InjectionAttackFilter(request);
+    wrapper = new InjectionAttackWrapper(request);
   }
 
   @Test

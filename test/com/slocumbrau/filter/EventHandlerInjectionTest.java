@@ -8,18 +8,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 public class EventHandlerInjectionTest {
-  private InjectionAttackFilter wrapper;
+  private InjectionAttackWrapper wrapper;
   private HttpServletRequest request;
 
   @Before
   public void setUp() throws Exception {
     request = Mockito.mock(HttpServletRequest.class);
-    wrapper = new InjectionAttackFilter(request);
+    wrapper = new InjectionAttackWrapper(request);
   }
 
   @Test
@@ -32,7 +31,7 @@ public class EventHandlerInjectionTest {
 
     Mockito.when(request.getParameterMap()).thenReturn(map);
 
-    wrapper = new InjectionAttackFilter(request);
+    wrapper = new InjectionAttackWrapper(request);
     Map output = wrapper.getParameterMap();
     assertEquals("%20Christina Zhong", ((String[]) output.get("param1"))[0]);
     assertEquals("%20ona sunny day", ((String[]) output.get("param2"))[0]);
@@ -66,7 +65,7 @@ public class EventHandlerInjectionTest {
 
     Mockito.when(request.getParameterMap()).thenReturn(map);
 
-    wrapper = new InjectionAttackFilter(request);
+    wrapper = new InjectionAttackWrapper(request);
     Map output = wrapper.getParameterMap();
 
     assertEquals("", ((String[]) output.get(param1))[0]);

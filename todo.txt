@@ -1,0 +1,3 @@
+allow user-configured additional string
+strip bad chars vs blank entire string
+optional logging (log4j?)
