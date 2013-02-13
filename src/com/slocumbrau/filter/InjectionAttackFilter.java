@@ -15,18 +15,14 @@ public class InjectionAttackFilter implements Filter {
   public static final String FILTER_SQL_INJECTION_PARAM_NAME = "filter_sql_injection";
   boolean filterXSS = true;
   boolean filterSQL = true;
-  InjectionAttackWrapper wrapper;
+  
   @Override
   public void destroy() {
-    // TODO Auto-generated method stub
-
   }
 
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-	if(wrapper == null) {
-		wrapper = new InjectionAttackWrapper((HttpServletRequest) servletRequest, filterXSS, filterSQL);
-	}
+    InjectionAttackWrapper wrapper = new InjectionAttackWrapper((HttpServletRequest) servletRequest, filterXSS, filterSQL);
     filterChain.doFilter(wrapper, servletResponse);
   }
 
