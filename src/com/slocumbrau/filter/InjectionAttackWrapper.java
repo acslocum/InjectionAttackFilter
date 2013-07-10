@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
@@ -91,6 +92,19 @@ public class InjectionAttackWrapper extends HttpServletRequestWrapper {
       rawValue = rawValue.replaceAll(SQL_REGEX, "");
     }
     return rawValue;
+  }
+  
+
+  @Override
+  public Cookie[] getCookies() {
+	Cookie[] existingCookies = super.getCookies();
+	if(existingCookies != null) {
+	  for(int i=0;i<existingCookies.length;++i) {
+		  Cookie cookie = existingCookies[i];
+		  cookie.setValue(filterParamString(cookie.getValue()));
+	  }
+	}
+    return existingCookies;
   }
 
   @Override

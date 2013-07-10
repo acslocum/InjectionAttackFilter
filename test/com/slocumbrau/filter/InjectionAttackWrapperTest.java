@@ -16,6 +16,7 @@ public class InjectionAttackWrapperTest {
   private final String DATE_INPUT = "August 30, 2005";
   private final String OTHER_CHARS_INPUT = ".' ,-";
   private final String STRING_WITH_RESTRICTED_CHARS = "<script>foo</script>";
+  private final String MIXED_CASE_STRING="en_SG_AP----><sCrIpT>alert(45152)</sCrIpT>";
   private final String RESTRICTED_2 = "%3Cscript%3Efoo%3C/script%3E";
   private final String RESTRICTED_LIST = "=%<>|$;%\"\n\r\\hi";
   private final String FILTERED_STRING = "scriptfoo/script";
@@ -58,6 +59,11 @@ public class InjectionAttackWrapperTest {
   @Ignore
   public void shouldRemoveLotsOfBadCharacters() {
     assertEquals("hi", wrapper.filterParamString(RESTRICTED_LIST));
+  }
+  
+  @Test
+  public void shouldCatchMixesCaseScriptTags() {
+	  assertEquals("en_SG_APsCrIpTalert(45152)/sCrIpT", wrapper.filterParamString(MIXED_CASE_STRING));
   }
 
   @Test
