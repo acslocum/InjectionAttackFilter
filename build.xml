@@ -22,7 +22,7 @@
 		<mkdir dir="junit"/>
 		<mkdir dir="classes"/>
 		<mkdir dir="testclasses"/>
-    	<javac srcdir="src" destdir="classes" fork="true" classpath="${classpath}"/>
+    	<javac srcdir="src" destdir="classes" fork="true" classpath="${classpath}" debug="true" debuglevel="lines,vars,source"/>
     	<javac srcdir="test" destdir="testclasses" fork="true" classpath="${test.classpath}"/>
 	</target>
 	
