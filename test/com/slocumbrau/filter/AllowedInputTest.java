@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 public class AllowedInputTest {
   private final String URL_INPUT6 = "http%3A%2F%2Fimg.slocumbrau.com%2Fis%2Fimage%2Fhere%2Fabcd12345600";
   private final String ADDRESS = "123 o'malley st. apt #4, kona, hi 12345";
+  private final String ADDRESS_WITH_SPACE = "123 o' malley st. apt #4, kona, hi 12345";
   private final String DATE_INPUT = "August 30, 2005";
   private final String OTHER_CHARS_INPUT = ".' ,-";
 
@@ -34,8 +35,13 @@ public class AllowedInputTest {
   }
 
   @Test
-  public void shouldAllowAddress() {
+  public void shouldAllowQuotedAddress() {
     assertEquals(ADDRESS, wrapper.filterParamString(ADDRESS));
+  }
+
+  @Test
+  public void shouldAllowQuotedAddressWithSpace() {
+    assertEquals(ADDRESS_WITH_SPACE, wrapper.filterParamString(ADDRESS_WITH_SPACE));
   }
 
   @Test

@@ -14,8 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -24,7 +22,7 @@ public class InjectionAttackWrapper extends HttpServletRequestWrapper {
   private static final String EVENTS = "((?i)onload|onunload|onchange|onsubmit|onreset" + "|onselect|onblur|onfocus|onkeydown|onkeypress|onkeyup"
       + "|onclick|ondblclick|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup)";
   private static final String XSS_HTML_TAG = "\\n\\r|(%3C)|(%3E)|[<>]+";
-  private static final String XSS_INJECTION = "(%22|')(\\s|%20)\\w.*|(\\s|%20)" + EVENTS + ".*|(%3D)|(%7C)";
+  private static final String XSS_INJECTION = "((%22%20)|(%22\\s)|('%22))\\w.*|(\\s|%20)" + EVENTS + ".*|(%3D)|(%7C)";
   private static final String XSS_REGEX = XSS_HTML_TAG + "|" + XSS_INJECTION;
   private static final String SQL_REGEX = "('.+--)|(--)|(\\|)|(%7C)";
 
