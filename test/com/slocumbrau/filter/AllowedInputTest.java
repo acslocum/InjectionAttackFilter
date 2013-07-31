@@ -73,5 +73,10 @@ public class AllowedInputTest {
   public void shouldAllowQuestionIdForAnswers() {
     assertEquals("questionId=12345", wrapper.filterParamString("questionId=12345"));
   }
+  
+  @Test
+  public void shouldAllowMultipleReturnsInInput() {
+    assertEquals("asdf\r\n\r\nasdf", wrapper.filterParamString("asdf\r\n\r\nasdf"));
+  }
 
 }
