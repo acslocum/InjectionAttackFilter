@@ -8,7 +8,7 @@
     <filter-name>injectionAttackFilter</filter-name>
     <filter-class>com.slocumbrau.filter.InjectionAttackFilter</filter-class>
 
-	<!-- optional parameters. values given are the defaults. they can be removed. -->
+	<!-- optional parameters. values given are the defaults. they can be set to false or removed to disable. -->
 	<init-param>
       <param-name>filter_xss</param-name>
       <param-value>true</param-value>
@@ -17,6 +17,10 @@
       <param-name>filter_sql_injection</param-name>
       <param-value>true</param-value>
     </init-param>
+    <init-param>
+      <!-- adds X-FRAME-OPTIONS -> SAMEORIGIN to all HttpServletResponses. Will not overwrite existing X-FRAME-OPTIONS header -->
+      <param-name>click_jacking_header</param-name>
+      <param-value>true</param-value>
   </filter>
 
   <filter-mapping>
