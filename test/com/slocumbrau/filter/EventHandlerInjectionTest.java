@@ -31,11 +31,13 @@ public class EventHandlerInjectionTest {
     String injectedCodeWithSpace = " onMouseOver=alert('today');";
     String injectedCodeWithQuote = "' string";
     String injectedCodeKeyboardWithSpace = " onkeydown=alert('today');";
+    String injectedCodeWithHexspaceAndSpace = "%22+onmouseover=alert(document.cookie)+%22";
     injectionMap.put("param1", new String[] { injectedCodeWithHexspace });
     injectionMap.put("param2", new String[] { injectedCodeWithHexquote });
     injectionMap.put("param3", new String[] { injectedCodeWithSpace });
     injectionMap.put("param4", new String[] { injectedCodeWithQuote });
     injectionMap.put("param5", new String[] { injectedCodeKeyboardWithSpace });
+    injectionMap.put("param6", new String[] { injectedCodeWithHexspaceAndSpace });
 }
 
   @Test
@@ -121,6 +123,15 @@ public class EventHandlerInjectionTest {
     Map<String,String[]> output = wrapper.getParameterMap();
 
     assertEquals("", ((String[]) output.get("param5"))[0]);
+  }
+
+  @Test
+  public void shouldFilterInjectedCodeHexQuoteWithNormalSpace() {
+    Mockito.when(request.getParameterMap()).thenReturn(injectionMap);
+    wrapper = new InjectionAttackWrapper(request);
+    Map<String,String[]> output = wrapper.getParameterMap();
+
+    assertEquals("", ((String[]) output.get("param6"))[0]);
   }
 
 }
